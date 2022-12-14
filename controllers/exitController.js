@@ -19,12 +19,13 @@ const getExit = async (req, res) => {
         return res.status(404).json({error: 'Not a valid id corresponding to any workout in the database'})
     }
 
-    try {
-        const payload = await Exit.findById(id)
-        res.status(200).json(payload)
-    } catch (error) {
-        res.status(404).json({error: "Exit not found"})
+    const payload = await Exit.findById(id)
+    
+    if (!payload) {
+        return res.status(404).json({error: "Exit not found"})
     }
+    
+    res.status(200).json(payload)
 }
 
 // CREATE A NEW EXIT
