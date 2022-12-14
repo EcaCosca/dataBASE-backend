@@ -32,4 +32,6 @@ const exitSchema = new Schema({
     exit: GeoSchema,
     landing: GeoSchema,
     parking: GeoSchema,
-})
+}, {timestamps: true})
+
+module.exports = mongoose.model('Exit', exitSchema)
