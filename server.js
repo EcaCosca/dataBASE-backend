@@ -1,23 +1,30 @@
 require('dotenv').config()
 
-const express = require('express')
-
 // SET UP
+const express = require('express')
+const mongoose = require('mongoose')
+const workoutRoutes = require('./routes/workouts')
 const port = process.env.PORT || 8000
 
 // express app
 const app = express()
 
-// Middleware
+// MIDDLEWARE
+// any request that comes in checks if it has a body and attaches into a request
+app.use(express.json())
+
 app.use((req, res, next)=>{
-    console.log(req.path, req.method)
+    console.log("PATH:",req.path," METHOD:", req.method)
     next()
 })
 
 // ROUTES
-app.get('/', (req, res) => {
-    res.json({mssg: "Welcome to the app"})
-})
+app.use('/api/workouts', workoutRoutes)
 
-// LISTEN FOR REQUESTS
-app.listen(port, () => {console.log(`http://localhost:${port}/`)})
+// CONNECT TO DB
+mongoose.connect(process.env.MONGO_URI)
+.then(() => {
+    // LISTEN FOR REQUESTS
+    app.listen(port, () => {console.log(`http://localhost:${port}/`)})
+ })
+ .catch((err) => { console.log(err) })
