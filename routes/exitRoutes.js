@@ -1,5 +1,6 @@
 const express = require('express')
 const Exit = require("../models/Exits")
+const {createExit} = require('../controllers/exitController')
 
 const router = express.Router()
 
@@ -14,10 +15,7 @@ router.get('/:id', (req, res) => {
 })
 
 // POST a NEW EXIT
-router.post('/', (req, res) => {
-    const {title, description, exit} = req.body
-
-})
+router.post('/', createExit)
 
 // DELETE a single EXIT
 router.delete('/:id', (req, res) => {
