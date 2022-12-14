@@ -1,30 +1,22 @@
 const express = require('express')
 const Exit = require("../models/Exits")
-const {createExit} = require('../controllers/exitController')
+const {createExit, getExits, getExit, deleteExit, updateExit} = require('../controllers/exitController')
 
 const router = express.Router()
 
 // GET all EXITs
-router.get('/', (req, res) => {
-    res.json({mssg: "GET ALL EXITS!"})
-})
+router.get('/', getExits)
 
 // GET a single EXIT
-router.get('/:id', (req, res) => {
-    res.json({mssg: "GET A single EXIT!"})
-})
+router.get('/:id', getExit)
 
 // POST a NEW EXIT
 router.post('/', createExit)
 
 // DELETE a single EXIT
-router.delete('/:id', (req, res) => {
-    res.json({mssg: "Delete a EXIT!"})
-})
+router.delete('/:id', deleteExit)
 
 // EDIT a single EXIT
-router.patch('/:id', (req, res) => {
-    res.json({mssg: "EDIT a EXIT!"})
-})
+router.patch('/:id', updateExit)
 
 module.exports = router
